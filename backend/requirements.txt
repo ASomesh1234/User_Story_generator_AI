@@ -1,0 +1,5 @@
+pymilvus
+transformers
+sentence-transformers
+streamlit
+langgraph
