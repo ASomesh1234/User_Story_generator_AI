@@ -11,6 +11,22 @@ from transformers import pipeline
 
 
 print(librosa.__version__)
+# Use a pipeline as a high-level helper
+from transformers import pipeline
+
+
+
+
+import google.generativeai as genai
+# Configure the API key
+genai.configure(api_key="AIzaSyDzr2N7iTDxTYYBQtlIV8A33_XLPzewgGU")
+
+
+#client = genai.Client(api_key="AIzaSyDzr2N7iTDxTYYBQtlIV8A33_XLPzewgGU")
+
+
+
+
 
 def transcribe_large_audio(audio_path):
 
@@ -93,8 +109,11 @@ def transcribe_audio1(audio_path):
     
     return " ".join(transcript)
 
-summarizer = pipeline("summarization", model="google/flan-t5-large")
+#summarizer = pipeline("summarization", model="google/flan-t5-large")
 #summarizer = pipeline("summarization", model="meta-llama/Meta-Llama-3-8B")
+summarizer = pipeline("summarization", model="google/flan-t5-large")
+
+
 
 
 
@@ -113,12 +132,20 @@ def save_to_file(text, filename="transcription.txt"):
 def read_from_txt(filename):
     with open(filename, "r", encoding="utf-8") as file:
         text = file.read()
+        print(f"✅ Text read from {filename}")
     return text  
 
 def summarize_with_ollama(text, model="llama3"):
     prompt = f"Summarize the following text:\n\n{text}"
     response = ollama.chat(model=model, messages=[{"role": "user", "content": prompt}])
-    return response["message"]["content"]    
+    return response["message"]["content"]  
+def summarize_with_google(text):
+    prompt = f"Summarize the following text:\n\n{text}"
+    pipe = pipeline("text2text-generation", model="CohereForAI/aya-101")
+    response = pipe(prompt, max_length=200, min_length=50, do_sample=False)[0]["summary_text"]
+    #model = genai.GenerativeModel("gemini-pro")
+    #response = model.generate_content(prompt)
+    return response  
 
 
 
@@ -137,7 +164,8 @@ if __name__ == "__main__":
    # save_to_file(summerizer_text, "summerizer.txt")
   #  print(summerizer_text)
     text = read_from_txt("transcription.txt")
-    summerizer_text1 = summarize_with_ollama(text)
+    print("Summery text -with started")
+    summerizer_text1 = summarize_with_google(text)
     print(summerizer_text1)
 
     #print(summarize_text(transcribed_text))
