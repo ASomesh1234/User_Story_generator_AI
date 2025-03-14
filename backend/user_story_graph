@@ -1,0 +1,11 @@
+digraph {
+	START [label=START color=green shape=oval]
+	extract_text_node [label="Extract Text" shape=box]
+	summarize_text [label="Summarize Text" shape=box]
+	generate_prd [label="Generate PRD" shape=box]
+	generate_user_stories [label="Generate User Stories" shape=box]
+	START -> extract_text_node
+	extract_text_node -> summarize_text
+	summarize_text -> generate_prd
+	generate_prd -> generate_user_stories
+}

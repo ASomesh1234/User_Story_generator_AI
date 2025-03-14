@@ -15,7 +15,7 @@ print(librosa.__version__)
 from transformers import pipeline
 
 
-
+#i need to be very aware of the thibks and le tbe aware of things tht should be
 
 import google.generativeai as genai
 # Configure the API key

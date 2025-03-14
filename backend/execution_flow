@@ -1,0 +1,16 @@
+digraph {
+	Start [label=START]
+	identify_file [label="Identify File"]
+	extract_audio_from_video_node [label="Extract Audio from Video"]
+	extract_text_from_docx_node [label="Extract Text from DOCX"]
+	extract_text_node [label="Extract Text"]
+	summarize_text [label="Summarize Text"]
+	generate_prd [label="Generate PRD"]
+	generate_user_stories [label="Generate User Stories"]
+	Start -> identify_file
+	extract_audio_from_video_node -> extract_text_node
+	extract_text_from_docx_node -> summarize_text
+	extract_text_node -> summarize_text
+	summarize_text -> generate_prd
+	generate_prd -> generate_user_stories
+}
